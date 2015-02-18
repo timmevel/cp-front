@@ -1,41 +1,158 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="assets/ratchet/css/ratchet.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Ecran d'accueil sur lequel l'utilisateur rentre le nom de sa liste et valide -->
+<script id="welcome-tpl" type="text/template">
+    <div class="container">
+        <div class="logo-app">
+            <img class="logo-app"  id='' src="assets/img/logo-cp-petit.png" />
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+            <form class="welcomeForm" action="#pots">
+            <p><input type="email" id="email" placeholder="Email"></p>
+            <p><input type="password" id="password" placeholder="Mot de Passe"></p>
+            <button class="btn btn-block btn-outlined">Connexion</button>
+        </form>
+    </div>
+</script>
+
+<script id="pot-tpl" type="text/template">
+    <header class="bar bar-nav">
+        <h1 class="title">Pots</h1>
+    </header>
+    <div class="bar bar-standard bar-header-secondary">
+        <input class='search-key' type="search"/>
+    </div>
+    <div class="content"></div>
+</script>
+
+<script id="pot-list-tpl" type="text/template">
+    <ul class="table-view">
+        {{#each this}}
+        <li class="table-view-cell media">
+            <a href="#pots/{{ id }}">
+                
+                    <img class="center" src="assets/pics/{{fname}}_{{lname}}.jpg">
+                
+                <p>
+                <div class="media-body">
+                    <p><strong>{{fname}} {{lname_initial}}</strong></p>
+                    <p>{{age}} ans</p>
+                </div>
+                </p>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+
+
+<script src="cordova.js"></script>
+<script src="lib/handlebars.js"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/router.js"></script>
+
+<script src="js/services/Data.js"></script>
+<script src="js/WelcomeView.js"></script>
+<script src="js/PotView.js"></script>
+<script src="js/PotListView.js"></script>
+
+<script src="js/app.js"></script>
+
+</body>
 </html>
+
+<!--
+<script id="home-tpl" type="text/template">
+    <header class="bar bar-nav">
+        <h1 class="title">Directory</h1>
+    </header>
+    <div class="bar bar-standard bar-header-secondary">
+        <input class='search-key' type="search"/>
+    </div>
+    <div class="content"></div>
+</script>
+
+<script id="employee-list-tpl" type="text/template">
+    <ul class="table-view">
+        {{#each this}}
+        <li class="table-view-cell media">
+            <a href="#employees/{{ id }}">
+                <img class="media-object pull-left" src="assets/pics/{{pic}}">
+                <div class="media-body">
+                    {{firstName}} {{lastName}}
+                    <p>{{title}}</p>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+
+<script id="employee-tpl" type="text/template">
+    <header class="bar bar-nav">
+        <a class="btn btn-link btn-nav pull-left" href="#">
+            <span class="icon icon-left-nav"></span>
+        </a>
+        <h1 class="title">Employee</h1>
+    </header>
+    <div class="content">
+        <div class="card">
+            <ul class="table-view">
+                <li class="table-view-cell media">
+                    <img class="media-object pull-left" src="assets/pics/{{pic}}">
+                    <div class="media-body">
+                        {{ firstName }} {{ lastName }}
+                        <p>{{ title }}</p>
+                    </div>
+                </li>
+                <li class="table-view-cell media">
+                    <a href="tel:{{ officePhone }}" class="push-right">
+                        <span class="media-object pull-left icon icon-call"></span>
+                        <div class="media-body">
+                            Call Office
+                            <p>{{ officePhone }}</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="table-view-cell media">
+                    <a href="tel:{{ cellPhone }}" class="push-right">
+                        <span class="media-object pull-left icon icon-call"></span>
+                        <div class="media-body">
+                            Call Cell
+                            <p>{{ cellPhone }}</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="table-view-cell media">
+                    <a href="sms:{{ cellPhone }}" class="push-right">
+                        <span class="media-object pull-left icon icon-sms"></span>
+                        <div class="media-body">
+                            SMS
+                            <p>{{ cellPhone }}</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="table-view-cell media">
+                    <a href="mailto:{{ email }}" class="push-right">
+                        <span class="media-object pull-left icon icon-mail"></span>
+                        <div class="media-body">
+                            Email
+                            <p>{{ email }}</p>
+                        </div>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</script>
+-->

@@ -1,0 +1,81 @@
+// Custom CSS stylesheet
+
+.bar-header-tertiary ~ .content {
+  padding-top: 132px;
+}
+
+.container {
+	background-color: #dc5353;
+}
+
+.container .logo-app {
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.container button, .container p {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	text-align: center;
+}
+
+
+.table-view {
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  list-style: none;
+  background-color: #fff;
+}
+
+.table-view-cell {
+  position: relative;
+  text-align: center;
+  width: 30%;
+  height: 60%;
+  display: inline-block;
+  top: 50px;
+  margin-left: 2.2%;
+  margin-right: auto;
+  padding: 10px 25px 10px 0px;
+  overflow: hidden;
+  border: none;
+}
+
+.table-view-cell img {
+	height: 60%;
+	width: 60%;
+	border-radius: 100px;
+
+	margin-right: auto;
+	margin-left: auto;
+
+	filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	-moz-filter: grayscale(1);
+	-o-filter: grayscale(1);
+	-ms-filter: grayscale(1);
+}
+
+
+
+.table-view-cell p {
+	width: 50%;
+	font-size: 0.6em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table-view-cell img:hover {
+	filter: sepia(1);
+	-webkit-filter: sepia(1);
+	-moz-filter: sepia(1);
+	-o-filter: sepia(1);
+	-ms-filter: sepia(1);
+}
+
+
