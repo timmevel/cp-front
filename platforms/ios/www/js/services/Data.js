@@ -1,37 +1,28 @@
 var Data = function() {
 
     var potsWithUsers;
+    var user;
 
     this.initialize = function(serviceURL) {
         url = serviceURL ? serviceURL : "http://cp-back.herokuapp.com/";
         var deferred = $.Deferred();
 
-        this.loadPots().done(function() {
-            console.log(potsWithUsers);
+        $.when(this.loadPots(), this.loadUser()).done(function() {
             deferred.resolve();
-        })        
+        });
+
+        /*this.loadPots().done(function() {
+            //console.log(potsWithUsers);
+            this.loadUser().done(function() {
+                
+            });
+        });*/        
         return deferred.promise();
     }
-
-
-    // this.initialize = function() {
-    //     // var deferred = $.Deferred();
-    //     // //var combinedPromise = $.when(loadShops(), loadUser(1));
-
-    //     // loadPots.done(function () {
-    //     //     deferred.resolve();
-    //     // });
-
-    //     // return deferred.promise();
-
-    //   this.$el = $('<div/>');
-    // };
 
     //Va chercher tous les pots sur heroku
     this.loadPots = function() {
         var deferred = $.Deferred();
-
-        console.log("in loadpots");
 
         //get sur heroku
         $.getJSON(url + 'pots.json')
@@ -44,6 +35,22 @@ var Data = function() {
             deferred2.done(function() {
                 deferred.resolve();
             });
+
+        });
+
+        return deferred.promise();
+    }
+
+    this.loadUser = function() {
+        var idUser = 1;
+        var deferred = $.Deferred();
+
+        //get sur heroku
+        $.getJSON(url + 'users/' + idUser + '.json')
+        .done(function(data) {
+            //enregistrement des données recues
+            user = data;
+            deferred.resolve();
 
         });
 
@@ -98,6 +105,35 @@ var Data = function() {
         return deferred.promise();
     }
 
+    this.findById = function (id) {
+        for (var i = 0; i < potsWithUsers.length; i++) {
+            if(potsWithUsers[i].id == id) {
+                return potsWithUsers[i];
+            }
+        };
+        return null;
+    }
+
+    this.donateCredit = function(idPot) {
+        var deferred = $.Deferred();
+        potsWithUsers[idPot].credit_collected = potsWithUsers[idPot].credit_collected + 1;
+        $.post(url + "pots/"+ idPot +"/donate_credit", {"donation_credit": {"user_id" : user.id, "quantity":1}}).done(function() {
+            deferred.resolve();
+        });
+
+        return deferred.promise();
+    }
+
+    this.donateCash = function(idPot, amount) {
+        var deferred = $.Deferred();
+        var p = this.findById(idPot);
+        p.cash_collected = p.cash_collected + amount;
+        $.post(url + "pots/"+ idPot +"/donate_cash", {"donation_cash": {"user_id" : user.id, "amount":amount}}).done(function() {
+            deferred.resolve();
+        });
+
+        return deferred.promise();
+    }
     
 }
 

@@ -9,6 +9,8 @@ function onDeviceReady() {
     WelcomeView.prototype.template = Handlebars.compile($("#welcome-tpl").html());
     PotView.prototype.template = Handlebars.compile($("#pot-tpl").html());
     PotListView.prototype.template = Handlebars.compile($("#pot-list-tpl").html());
+    PotDetailView.prototype.template = Handlebars.compile($("#pot-detail-tpl").html());
+    PotDonView.prototype.template = Handlebars.compile($("#pot-don-tpl").html());
 
 
     var service = new Data();
@@ -22,6 +24,14 @@ function onDeviceReady() {
         router.addRoute('pots', function() {
             $('body').html(new PotView(service).render().$el);
         });
+
+        router.addRoute('pots/:id', function(id) {
+            $('body').html(new PotDetailView(service, parseInt(id)).render().$el);
+        });
+
+        router.addRoute('pots/:id/don', function(id) {
+            $('body').html(new PotDonView(service, parseInt(id)).render().$el);
+        });        
 
         router.start();
     });

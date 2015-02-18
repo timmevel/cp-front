@@ -26,10 +26,13 @@
 
 <script id="pot-tpl" type="text/template">
     <header class="bar bar-nav">
-        <h1 class="title">Pots</h1>
+        <h1 class="title"><img class="logo-app" src="assets/img/logo-cp-petit.png"></h1>
     </header>
+    <!--<div class="bar bar-standard bar-header-tertiary">
+        <h2>Un CoudPouce pour Un CoudCoeur</h2>
+    </div> -->
     <div class="bar bar-standard bar-header-secondary">
-        <input class='search-key' type="search"/>
+        <input class='search-key' type="search" placeholder="Rechercher"/>
     </div>
     <div class="content"></div>
 </script>
@@ -40,18 +43,91 @@
         <li class="table-view-cell media">
             <a href="#pots/{{ id }}">
                 
-                    <img class="center" src="assets/pics/{{fname}}_{{lname}}.jpg">
+                    <img class="center" src="assets/pics/{{fname}}_{{lname}}.jpg" />
                 
                 <p>
-                <div class="media-body">
-                    <p><strong>{{fname}} {{lname_initial}}</strong></p>
-                    <p>{{age}} ans</p>
-                </div>
+                    <div class="media-body">
+                        <p><strong>{{fname}} {{lname_initial}}</strong></p>
+                        <p>{{age}} ans</p>
+                    </div>
                 </p>
             </a>
         </li>
         {{/each}}
     </ul>
+</script>
+
+<script id="pot-detail-tpl" type="text/template">
+    <header class="bar bar-nav">
+        <a class="btn btn-link btn-nav pull-left" href="#pots">
+            <span class="icon icon-left-nav"></span>
+        </a>
+        <h1 class="title"><img class="logo-app" src="assets/img/logo-cp-petit.png"></h1>
+    </header>
+    <div class="content pot-detail">
+        <div class="pot-user">
+            <img src="assets/pics/{{fname}}_{{lname}}.jpg" />
+        </div>
+        <div class="pot-user pot-user-id">
+            <h1>
+                {{fname}} {{lname_initial}}<br />
+            </h1>
+            <h2>
+                {{age}} ans
+            </h2>
+            <p class="cagnotte-progress">
+                <progress value="{{cash_collected}}" max="{{cash_demand}}" /> <br />
+            </p>
+            <p>
+                Cagnotte : {{percentage_collected}} % <br />
+                ({{cash_collected}} de {{cash_demand}} euros)
+            </p>
+
+        </div>
+        <div class="pot-description">
+            <h3>Mes besoins</h3>
+            <p>{{description}}</p>
+        </div>
+
+        <div class="bar bar-standard bar-footer">
+            <a class="btn btn-positive btn-block" href="#pots/{{id}}/don">Faire un don</a>
+        </div>
+    </div>
+    
+
+</script>
+
+<script id="pot-don-tpl" type="text/template">
+    <header class="bar bar-nav">
+        <a class="btn btn-link btn-nav pull-left" href="#pots/{{id}}">
+            <span class="icon icon-left-nav"></span>
+        </a>
+        <h1 class="title"><img class="logo-app" src="assets/img/logo-cp-petit.png"></h1>
+    </header>
+    <div class="content">
+        <p>
+        {{fname}} {{lname}}<br />
+        {{age}} ans
+        </p>
+
+        <a class="btn btn-positive btn-block donGratuit">Don gratuit</a>
+
+        <p>Don monétaire</p>
+        <a class="btn btn-positive" onClick="donMoney(5)">5 €</a>
+        <a class="btn btn-positive" onClick="donMoney(10)">10 €</a>
+        <a class="btn btn-positive" onClick="donMoney(20)">20 €</a>
+        <a class="btn btn-positive" onClick="donMoney(30)">30 €</a>
+        <a class="btn btn-positive" onClick="donMoney(50)">50 €</a>
+        <form name="amountForm">
+            Autre montant : <input type="number" name="amount">
+        </form>
+        <a class="btn btn-positive" onClick="donMoney()">Envoyer</a>
+
+
+
+    </div>
+    
+
 </script>
 
 
@@ -64,6 +140,9 @@
 <script src="js/WelcomeView.js"></script>
 <script src="js/PotView.js"></script>
 <script src="js/PotListView.js"></script>
+<script src="js/PotDetailView.js"></script>
+<script src="js/PotDonView.js"></script>
+
 
 <script src="js/app.js"></script>
 

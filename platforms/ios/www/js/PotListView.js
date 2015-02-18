@@ -4,12 +4,13 @@ var PotListView = function () {
 
     this.initialize = function() {
         this.$el = $('<div/>');
+        this.render();
     };
 
     this.setPots = function(list) {
         pots = list;
         this.render();
-    }
+    };
 
     this.render = function() {
         //console.log("renderPots : " + pots);

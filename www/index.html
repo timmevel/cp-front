@@ -64,22 +64,30 @@
         </a>
         <h1 class="title"><img class="logo-app" src="assets/img/logo-cp-petit.png"></h1>
     </header>
-    <div class="content">
+    <div class="content pot-detail">
+        <div class="pot-user">
+            <img src="assets/pics/{{fname}}_{{lname}}.jpg" />
+        </div>
+        <div class="pot-user pot-user-id">
+            <h1>
+                {{fname}} {{lname_initial}}<br />
+            </h1>
+            <h2>
+                {{age}} ans
+            </h2>
+            <p class="cagnotte-progress">
+                <progress value="{{cash_collected}}" max="{{cash_demand}}" /> <br />
+            </p>
+            <p>
+                Cagnotte : {{percentage_collected}} % <br />
+                ({{cash_collected}} de {{cash_demand}} euros)
+            </p>
 
-        <img src="assets/pics/{{fname}}_{{lname}}.jpg" />
-        
-        <p>
-        {{fname}} {{lname_initial}}<br />
-        {{age}} ans
-        </p>
-
-        <p>
-        <progress value="{{cash_collected}}" max="{{cash_demand}}" /> <br />
-        Cagnotte : {{percentage_collected}} % <br />
-        ({{cash_collected}} de {{cash_demand}} euros)
-        </p>
-
-        <p>{{description}}</p>
+        </div>
+        <div class="pot-description">
+            <h3>Mes besoins</h3>
+            <p>{{description}}</p>
+        </div>
 
         <div class="bar bar-standard bar-footer">
             <a class="btn btn-positive btn-block" href="#pots/{{id}}/don">Faire un don</a>
@@ -111,7 +119,7 @@
         <a class="btn btn-positive" onClick="donMoney(30)">30 €</a>
         <a class="btn btn-positive" onClick="donMoney(50)">50 €</a>
         <form name="amountForm">
-            Autre montant : <input type="text" name="amount">
+            Autre montant : <input type="number" name="amount">
         </form>
         <a class="btn btn-positive" onClick="donMoney()">Envoyer</a>
 
